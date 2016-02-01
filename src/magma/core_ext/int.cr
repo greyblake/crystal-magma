@@ -8,22 +8,36 @@
 
 #fail_coercion +, Bool
 
-struct Int
-  alias NoneIntCompatibleType = Bool|Nil|String
 
+
+alias NoneIntCompatibleType = Bool|Nil|String
+
+struct Number
   def +(arg : NoneIntCompatibleType)
-    raise("#{arg.inspect} can't be coerced into Int")
+    raise("#{arg.inspect} can't be coerced into Number")
   end
 
   def -(arg : NoneIntCompatibleType)
-    raise("#{arg.inspect} can't be coerced into Int")
+    raise("#{arg.inspect} can't be coerced into Number")
   end
 
   def *(arg : NoneIntCompatibleType)
-    raise("#{arg.inspect} can't be coerced into Int")
+    raise("#{arg.inspect} can't be coerced into Number")
+  end
+
+  def **(arg : NoneIntCompatibleType)
+    raise("#{arg.inspect} can't be coerced into Number")
   end
 
   def /(arg : NoneIntCompatibleType)
-    raise("#{arg.inspect} can't be coerced into Int")
+    raise("#{arg.inspect} can't be coerced into Number")
+  end
+
+  def >(arg : NoneIntCompatibleType)
+    raise("#{arg.inspect} can't be coerced into Number")
+  end
+
+  def <(arg : NoneIntCompatibleType)
+    raise("#{arg.inspect} can't be coerced into Number")
   end
 end

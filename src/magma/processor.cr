@@ -42,6 +42,8 @@ module Magma
       case node.kind
       when :i32
         node.value.to_i
+      when :f64
+        node.value.to_f
       else
         abort "process_number_literal:: unknown kind: #{node.kind.inspect}"
       end

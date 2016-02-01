@@ -3,7 +3,7 @@ require "compiler/crystal/**"
 require "./magma/**"
 
 module Magma
-  alias Any = Int32 | Nil | Bool | String
+  alias Any = Int32 | Float64 | Nil | Bool | String
 end
 
 

@@ -40,6 +40,20 @@ module Magma
         obj * val
       when "/"
         obj / val
+      when "**"
+        obj **(val)
+      when "<=>"
+        obj <=> val
+      when "=="
+        obj == val
+      when ">"
+        obj > val
+      when "<"
+        obj < val
+      when "abs"
+        obj.abs
+      when "abs2"
+        obj.abs2
       else
         raise("Unknown method for #{obj.inspect}: `#{node.name}`")
       end
