@@ -27,11 +27,24 @@ module Magma
         process_and(node as Crystal::And)
       when Crystal::CharLiteral
         process_char_literal(node as Crystal::CharLiteral)
+      when Crystal::StringInterpolation
+        process_string_interpolation(node as Crystal::StringInterpolation)
       when Crystal::NilLiteral
         nil
       else
         abort "process_node:: unknown node: #{node.class}"
       end
+    end
+
+
+    def process_string_interpolation(node : Crystal::StringInterpolation) : String
+      puts "process_string_interpolation" if @debug
+
+      arr = [] of String
+      node.expressions.each do |exp|
+        arr << process_node(exp).to_s
+      end
+      arr.join("")
     end
 
     def process_char_literal(node : Crystal::CharLiteral)
