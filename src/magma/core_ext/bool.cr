@@ -1,5 +1,5 @@
 struct Bool
-  alias NoneBoolType = (Nil | String | Float64 | Int32 | Int64 | UInt64 | Char)
+  alias NoneBoolType = (Nil | String | Float64 | Int32 | Int64 | UInt64 | Char | AnyArray )
 
   def to_f64
     puts "Can't coerce Bool to Float"

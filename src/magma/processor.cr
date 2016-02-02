@@ -1,7 +1,7 @@
 module Magma
   class Processor
     def initialize(debug = false)
-      @context = Hash(String, Any).new
+      @context = Hash(String, Any|Array(Any)).new
       @debug = debug
     end
 
@@ -29,6 +29,10 @@ module Magma
         process_char_literal(node as Crystal::CharLiteral)
       when Crystal::StringInterpolation
         process_string_interpolation(node as Crystal::StringInterpolation)
+      when Crystal::SymbolLiteral
+        process_symbol_literal(node as Crystal::SymbolLiteral)
+      when Crystal::ArrayLiteral
+        process_array_literal(node as Crystal::ArrayLiteral)
       when Crystal::NilLiteral
         nil
       else
@@ -36,6 +40,28 @@ module Magma
       end
     end
 
+    def process_array_literal(node : Crystal::ArrayLiteral)
+      puts "process_array_literal" if @debug
+
+      array = [] of Any
+
+      # Other properties for the node
+      #  - of
+      #  - name
+      node.elements.each do |element|
+        array << process_node(element)
+      end
+
+      array
+    end
+
+    def process_symbol_literal(node : Crystal::SymbolLiteral)
+      puts "process_string_interpolation" if @debug
+
+      # TODO: It's not possible to convert Strings to Symbols dynamically,
+      # we have to find a way to manage this properly...
+      node.value
+    end
 
     def process_string_interpolation(node : Crystal::StringInterpolation) : String
       puts "process_string_interpolation" if @debug

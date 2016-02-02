@@ -10,7 +10,7 @@
 
 
 
-alias NoneIntCompatibleType = Bool|Nil|String|Char
+alias NoneIntCompatibleType = Bool|Nil|String|Char|AnyArray
 
 struct Number
   def +(arg : NoneIntCompatibleType)

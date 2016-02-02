@@ -1,9 +1,12 @@
 require "compiler/crystal/**"
 
+alias Any = Int32 | Int64 | UInt64 | Float64 | Nil | Bool | String | Char
+alias AnyArray = Array(Any)
+
 require "./magma/**"
 
+
 module Magma
-  alias Any = Int32 | Int64 | UInt64 | Float64 | Nil | Bool | String | Char
 end
 
 
