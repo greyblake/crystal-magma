@@ -1,5 +1,7 @@
 module Magma
   class Processor
+    getter :context
+
     def initialize(debug = false)
       @context = Hash(String, Any|Array(Any)).new
       @debug = debug
@@ -33,11 +35,32 @@ module Magma
         process_symbol_literal(node as Crystal::SymbolLiteral)
       when Crystal::ArrayLiteral
         process_array_literal(node as Crystal::ArrayLiteral)
+      when Crystal::HashLiteral
+        process_hash_literal(node as Crystal::HashLiteral)
       when Crystal::NilLiteral
         nil
       else
         abort "process_node:: unknown node: #{node.class}"
       end
+    end
+
+    def process_hash_literal(node : Crystal::HashLiteral)
+      puts "process_hash_literal" if @debug
+      # node properties:
+      #  * entries
+      #  * of
+      #  * name
+
+      puts "no support for Hashes"
+      abort "#{__FILE__}:#{__LINE__}"
+      #hash = AnyHash.new
+
+      #node.entries.each do |entry|
+      #  key = process_node(entry.key)
+      #  value = process_node(entry.value)
+      #  hash[key] = value
+      #end
+      #hash
     end
 
     def process_array_literal(node : Crystal::ArrayLiteral)

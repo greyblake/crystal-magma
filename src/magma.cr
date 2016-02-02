@@ -2,7 +2,9 @@ require "compiler/crystal/**"
 
 alias Any = Int32 | Int64 | UInt64 | Float64 | Nil | Bool | String | Char
 alias AnyArray = Array(Any)
+alias AnyHash = Hash(Any|AnyArray, Any|AnyArray)
 
+require "./magma/processor"
 require "./magma/**"
 
 

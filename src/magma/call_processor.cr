@@ -13,11 +13,43 @@ module Magma
           process_number(obj)
         when Bool
           process_bool(obj as Bool)
+        when Array
+          process_array(obj)
         else
-          raise("Can't handle #{obj.class}")
+          puts "Can't handle #{obj.class}"
+          abort "#{__FILE__}:#{__LINE__}"
         end
       else
         process_global
+      end
+    end
+
+    class BlockExecuter < ::Magma::Processor
+      def initialize(@processor, @block : Crystal::Block, @args : Array)
+        @context = @processor.context
+      end
+
+      def execute
+        # Set context variables
+        @block.args.each_with_index do |var_node, index|
+          name = var_node.name
+          @context[name] = @args[index]
+        end
+
+        process_node(@block.body)
+      end
+    end
+
+    private def process_array(obj)
+      case node.name
+      when "each"
+        if node.block
+          obj.each do |item|
+            BlockExecuter.new(processor, node.block as Crystal::Block, [item]).execute
+          end
+        end
+      else
+        raise("Unknown method for #{obj.inspect}: #{node.name}")
       end
     end
 
