@@ -21,9 +21,36 @@ module Magma
         process_var(node as Crystal::Var)
       when Crystal::StringLiteral
         process_string_literal(node as Crystal::StringLiteral)
+      when Crystal::Or
+        process_or(node as Crystal::Or)
+      when Crystal::And
+        process_and(node as Crystal::And)
+      when Crystal::CharLiteral
+        process_char_literal(node as Crystal::CharLiteral)
+      when Crystal::NilLiteral
+        nil
       else
         abort "process_node:: unknown node: #{node.class}"
       end
+    end
+
+    def process_char_literal(node : Crystal::CharLiteral)
+      puts "process_char_literal" if @debug
+      node.value
+    end
+
+    def process_or(node : Crystal::Or)
+      puts "process_or" if @debug
+      left = process_node(node.left)
+      right = process_node(node.right)
+      left || right
+    end
+
+    def process_and(node : Crystal::And)
+      puts "process_and" if @debug
+      left = process_node(node.left)
+      right = process_node(node.right)
+      left && right
     end
 
     def process_var(node : Crystal::Var)
@@ -38,15 +65,7 @@ module Magma
 
     def process_number_literal(node : Crystal::NumberLiteral)
       puts "process_number_literal" if @debug
-
-      case node.kind
-      when :i32
-        node.value.to_i
-      when :f64
-        node.value.to_f
-      else
-        abort "process_number_literal:: unknown kind: #{node.kind.inspect}"
-      end
+      NumberLiteralProcessor.new(self, node).process
     end
 
     def process_assign(node : Crystal::Assign)

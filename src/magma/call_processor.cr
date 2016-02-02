@@ -11,6 +11,8 @@ module Magma
         case obj
         when Number
           process_number(obj)
+        when Bool
+          process_bool(obj as Bool)
         else
           raise("Can't handle #{obj.class}")
         end
@@ -19,10 +21,13 @@ module Magma
       end
     end
 
-    private def process_bool(obj)
+    private def process_bool(obj : Bool)
       case node.name
       when "!"
         !obj
+      when "^"
+        arg = processor.process_node(node.args.first)
+        obj ^ arg
       else
         raise("Unknown method for #{obj.inspect}: #{node.name}")
       end
