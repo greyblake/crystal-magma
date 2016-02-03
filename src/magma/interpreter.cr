@@ -1,7 +1,7 @@
 module Magma
   class Interpreter < Processor
     def initialize
-      @context = Hash(String, Any).new
+      @context = Hash(String, MObject).new
     end
 
     def execute(code : String)

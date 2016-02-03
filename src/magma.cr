@@ -9,6 +9,9 @@ require "./magma/interpreter"
 require "./magma/processors/node_processor"
 require "./magma/processors/*"
 
+require "./magma/types/m_object"
+require "./magma/types/*"
+
 
 module Magma
 end

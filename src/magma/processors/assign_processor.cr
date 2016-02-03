@@ -1,6 +1,6 @@
 module Magma
   class AssignProcessor < NodeProcessor
-    def process(node : Crystal::Assign)
+    def process(node : Crystal::Assign) : MObject
       case node.target
       when Crystal::Var
         var = node.target as Crystal::Var
