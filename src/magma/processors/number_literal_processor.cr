@@ -1,11 +1,6 @@
 module Magma
-  class NumberLiteralProcessor
-    getter :processor, :node
-
-    def initialize(@processor, @node : Crystal::NumberLiteral)
-    end
-
-    def process
+  class NumberLiteralProcessor < NodeProcessor
+    def process(node : Crystal::NumberLiteral)
       case node.kind
       when :i8, :i16, :i32, :i64
         node.value.to_i64

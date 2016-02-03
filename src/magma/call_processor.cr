@@ -24,34 +24,37 @@ module Magma
       end
     end
 
-    class BlockExecuter < ::Magma::Processor
-      def initialize(@processor, @block : Crystal::Block, @args : Array)
-        @context = @processor.context
-      end
+    #class BlockExecuter < ::Magma::Processor
+    #  def initialize(@processor, @block : Crystal::Block, @args : Array)
+    #    @context = @processor.context
+    #  end
 
-      def execute
-        # Set context variables
-        @block.args.each_with_index do |var_node, index|
-          name = var_node.name
-          @context[name] = @args[index]
-        end
+    #  def execute
+    #    # Set context variables
+    #    @block.args.each_with_index do |var_node, index|
+    #      name = var_node.name
+    #      @context[name] = @args[index]
+    #    end
 
-        process_node(@block.body)
-      end
-    end
+    #    process_node(@block.body)
+    #  end
+    #end
 
-    private def process_array(obj)
-      case node.name
-      when "each"
-        if node.block
-          obj.each do |item|
-            BlockExecuter.new(processor, node.block as Crystal::Block, [item]).execute
-          end
-        end
-      else
-        raise("Unknown method for #{obj.inspect}: #{node.name}")
-      end
-    end
+    #private def process_array(obj)
+    #  case node.name
+    #  when "each"
+    #    if node.block
+    #      obj.each do |item|
+    #        BlockExecuter.new(processor, node.block as Crystal::Block, [item]).execute
+    #      end
+    #    end
+    #  when "<<"
+    #    obj << processor.process_node(node.args.first)
+    #  else
+    #    puts "#{__FILE__}:#{__LINE__}"
+    #    raise("Unknown method for #{obj.class}: #{node.name}")
+    #  end
+    #end
 
     private def process_bool(obj : Bool)
       case node.name
