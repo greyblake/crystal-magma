@@ -10,7 +10,7 @@ module Magma
     def call(method, args = [] of MObject : Array(MObject))
       case method
       when "puts"
-        args.each { |arg| puts arg.value }
+        args.each { |arg| puts arg.call("to_s").value }
         MNil.new
       when "to_s"
         MString.new(@value.to_s)
