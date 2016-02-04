@@ -1,5 +1,5 @@
 module Magma
-  class MArray < MObject
+  class MTuple < MObject
     def initialize(@value : Array(MObject))
     end
 
@@ -8,21 +8,16 @@ module Magma
       @value as Array(MObject)
     end
 
-    def call(method, args = [] of MObject : Array(MObject))
+    def call(method, args : Array(MObject))
       case method
-      when "first"
-        value[0]
       when "to_s"
         call("inspect", args)
       when "inspect"
         list = value.map { |item| item.call("inspect", [] of MObject).value }.join(", ")
-        MString.new("[#{list}]")
-      when "<<"
-        # TODO: raise exception if number of arguments does not match
-
-        new_item = args.first
-        value << new_item
-        self
+        MString.new("{#{list}}")
+      when "[]"
+        index = args.first.value as Int64
+        value[index]
       else
         super
       end
