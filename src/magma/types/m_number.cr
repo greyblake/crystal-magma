@@ -15,6 +15,24 @@ module Magma
       when "+"
         result = (@value as Number) + (args.first.value as Number)
         mtype_wrap(result)
+
+      # TODO: refactor, clean up with macro
+      when "=="
+        result = (@value as Number) == (args.first.value as Number)
+        mtype_wrap(result)
+      when ">"
+        result = (@value as Number) > (args.first.value as Number)
+        mtype_wrap(result)
+      when "<"
+        result = (@value as Number) < (args.first.value as Number)
+        mtype_wrap(result)
+      when "<="
+        result = (@value as Number) <= (args.first.value as Number)
+        mtype_wrap(result)
+      when ">="
+        result = (@value as Number) >= (args.first.value as Number)
+        mtype_wrap(result)
+
       when "inspect"
         MString.new(@value.inspect)
       when "to_s"

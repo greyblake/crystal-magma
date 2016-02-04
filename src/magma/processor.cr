@@ -47,7 +47,8 @@ module Magma
     define_gprocess [
       Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And, NilLiteral, CharLiteral,
       StringInterpolation, SymbolLiteral, ArrayLiteral, RangeLiteral, RegexLiteral, TupleLiteral,
-      FunLiteral, Def
+      FunLiteral, Def,
+      If
     ]
 
     property :var_context, :method_context

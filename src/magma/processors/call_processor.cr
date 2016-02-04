@@ -89,7 +89,9 @@ module Magma
     private def process_global(node)
       if method_context[node.name]?
         def_node = method_context[node.name]
-        MethodCaller.new(self).call(def_node, node.args)
+        # get actual value of arguments
+        args = node.args.map { |arg_node| gprocess(arg_node) }
+        MethodCaller.new(self).call(def_node, args)
       else
         args = node.args.map {|node| gprocess(node) }
         MObject.new(nil).call(node.name, args)
@@ -110,11 +112,11 @@ module Magma
         @var_context
       end
 
-      def call(def_node : Crystal::Def, args)
+      def call(def_node : Crystal::Def, args : Array(MObject))
         # Pass arguments into the method context
         def_node.args.each_with_index do |var_node, index|
           name = var_node.name
-          var_context[name] = gprocess(args[index])
+          var_context[name] = args[index]
         end
         gprocess(def_node.body)
       end
