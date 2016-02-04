@@ -3,19 +3,9 @@ module Magma
   class CallProcessor < NodeProcessor
     def process(node : Crystal::Call) : MObject
       if node.obj
-        abort "#{__FILE__}:#{__LINE__} - Currently process only global calls"
-        #obj = gprocess(node.obj)
-        #case obj
-        #when Number
-        #  process_number(obj)
-        #when Bool
-        #  process_bool(obj as Bool)
-        #when Array
-        #  process_array(obj)
-        #else
-        #  puts "Can't handle #{obj.class}"
-        #  abort "#{__FILE__}:#{__LINE__}"
-        #end
+        receiver = gprocess(node.obj)
+        args = node.args.map { |arg_node| gprocess(arg_node) }
+        receiver.call(node.name, args)
       else
         process_global(node)
       end
@@ -98,19 +88,7 @@ module Magma
 
     private def process_global(node)
       args = node.args.map {|node| gprocess(node) }
-
       MObject.new(nil).call(node.name, args)
-
-      # call global method
-      #case node.name
-      #when "puts"
-      #  node.args.each do |arg|
-      #    puts gprocess(arg)
-      #  end
-      #  nil
-      #else
-      #  abort "process_call:: (no obj) unknown call name: #{node.name.inspect}"
-      #end
     end
   end
 end

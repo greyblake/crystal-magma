@@ -4,6 +4,7 @@ alias Any = Int32 | Int64 | UInt64 | Float64 | Nil | Bool | String | Char
 alias AnyArray = Array(Any)
 alias AnyHash = Hash(Any|AnyArray, Any|AnyArray)
 
+require "./magma/mtype_wrapper"
 require "./magma/processor"
 require "./magma/interpreter"
 require "./magma/processors/node_processor"

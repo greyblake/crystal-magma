@@ -13,21 +13,34 @@ module Magma
     #    end
     #   end
     macro define_gprocess(nodes)
-      def gprocess(node : Crystal::ASTNode)
+      def gprocess(node : Crystal::ASTNode|Nil)
         case node
         {% for node, index in nodes %}
         when Crystal::{{node}}
             {{node}}Processor.new(self).process(node as Crystal::{{node}})
         {% end %}
         else
-          abort "Processor#gprocess: can't process node #{node.class}"
+          node_name = node.class.to_s.split("::").last
+          puts "Processor#gprocess: can't process node #{node.class}"
+          puts <<-MSG
+          Implement Magma::#{node_name}Processor class:
+
+          module Magma
+            class #{node_name}Processor < NodeProcessor
+              def process(node : Crystal::#{node_name}) : MObject
+              end
+            end
+          end
+          MSG
+          exit 1
         end
       end
     end
 
+    include MTypeWrapper
     getter :context
 
-    define_gprocess [Assign, StringLiteral, NumberLiteral, Call, Expressions]
+    define_gprocess [Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And]
 
     def initialize
       @context = Hash(String, MObject).new
