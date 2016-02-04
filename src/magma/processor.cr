@@ -31,6 +31,11 @@ module Magma
               end
             end
           end
+
+          And register in processor.cr
+
+            define_gprocess [Assign, StringLiteral, ... , #{node_name}]
+
           MSG
           exit 1
         end
@@ -40,7 +45,7 @@ module Magma
     include MTypeWrapper
     getter :context
 
-    define_gprocess [Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And]
+    define_gprocess [Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And, NilLiteral]
 
     def initialize
       @context = Hash(String, MObject).new
