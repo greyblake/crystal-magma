@@ -2,7 +2,7 @@
 
 An attempt to implement Crystal interpreter.
 
-Current under development.
+Currently under hard development.
 
 ## Contributors
 

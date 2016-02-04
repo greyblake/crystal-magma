@@ -3,9 +3,9 @@ module Magma
     def call(method, args : Array(MObject))
       case method
       when "to_s"
-        MString.new(@value)
+        MString.new(value)
       when "inspect"
-        MString.new(":#{@value}")
+        MString.new(":#{value}")
       else
         super
       end

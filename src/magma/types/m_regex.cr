@@ -1,13 +1,11 @@
 module Magma
-  class MString < MObject
+  class MRegex < MObject
     def call(method, args = [] of MObject : Array(MObject))
       case method
       when "to_s"
-        self
-      when "=~"
-        regex = args.first.value as Regex
-        result = value =~ regex
-        mtype_wrap(result)
+        MString.new(value.to_s)
+      when "inspect"
+        MString.new(value.inspect)
       else
         super
       end

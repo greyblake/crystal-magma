@@ -47,7 +47,7 @@ module Magma
 
     define_gprocess [
       Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And, NilLiteral, CharLiteral,
-      StringInterpolation, SymbolLiteral, ArrayLiteral, RangeLiteral
+      StringInterpolation, SymbolLiteral, ArrayLiteral, RangeLiteral, RegexLiteral
     ]
 
     def initialize
