@@ -5,7 +5,7 @@ module Magma
       when "to_s"
         self
       else
-        abort("Not implement method #{self.class}##{method}")
+        super
       end
     end
   end
