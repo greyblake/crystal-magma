@@ -14,6 +14,8 @@ module Magma
       when "first"
         value[0]
       when "to_s"
+        call("inspect", args)
+      when "inspect"
         list = value.map { |item| item.call("inspect", [] of MObject).value }.join(", ")
         MString.new("[#{list}]")
       when "<<"
