@@ -6,9 +6,7 @@ module Magma
       #  - name
       arr = node.elements.map { |node| gprocess(node) }
 
-      pp node
-      pp node.of
-      pp node.name
+      # TODO: determine type of array
 
       MArray.new(arr)
     end
