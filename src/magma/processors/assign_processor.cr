@@ -5,7 +5,7 @@ module Magma
       when Crystal::Var
         var = node.target as Crystal::Var
         value = gprocess(node.value)
-        set_var(var.name, value)
+        var_context[var.name] = value
       else
         abort "AssignProcessor: unknown node: #{node.class}"
       end

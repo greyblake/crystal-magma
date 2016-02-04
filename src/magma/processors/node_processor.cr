@@ -7,8 +7,12 @@ module Magma
       super()
     end
 
-    def context
-      parent.context
+    def var_context
+      parent.var_context
+    end
+
+    def method_context
+      parent.method_context
     end
 
     # Does not work really work

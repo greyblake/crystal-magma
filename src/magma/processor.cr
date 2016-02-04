@@ -43,19 +43,18 @@ module Magma
     end
 
     include MTypeWrapper
-    getter :context
 
     define_gprocess [
       Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And, NilLiteral, CharLiteral,
-      StringInterpolation, SymbolLiteral, ArrayLiteral, RangeLiteral, RegexLiteral, TupleLiteral
+      StringInterpolation, SymbolLiteral, ArrayLiteral, RangeLiteral, RegexLiteral, TupleLiteral,
+      FunLiteral, Def
     ]
 
-    def initialize
-      @context = Hash(String, MObject).new
-    end
+    property :var_context, :method_context
 
-    def set_var(name, value)
-      context[name] = value
+    def initialize
+      @var_context = Hash(String, MObject).new
+      @method_context = Hash(String, Crystal::Def).new
     end
   end
 end

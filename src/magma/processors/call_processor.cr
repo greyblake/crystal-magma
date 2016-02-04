@@ -87,8 +87,37 @@ module Magma
     #end
 
     private def process_global(node)
-      args = node.args.map {|node| gprocess(node) }
-      MObject.new(nil).call(node.name, args)
+      if method_context[node.name]?
+        def_node = method_context[node.name]
+        MethodCaller.new(self).call(def_node, node.args)
+      else
+        args = node.args.map {|node| gprocess(node) }
+        MObject.new(nil).call(node.name, args)
+      end
+    end
+
+    # TODO: hacky, it needs to manage context, but should not inherit form NodeProcessor.
+    class MethodCaller < NodeProcessor
+      def initialize(*args)
+        super(*args)
+
+        # Method should have its own var context.
+        @var_context = Hash(String, MObject).new
+      end
+
+      # It's necessary, because NodeProcessor redefines +var_context+
+      def var_context
+        @var_context
+      end
+
+      def call(def_node : Crystal::Def, args)
+        # Pass arguments into the method context
+        def_node.args.each_with_index do |var_node, index|
+          name = var_node.name
+          var_context[name] = gprocess(args[index])
+        end
+        gprocess(def_node.body)
+      end
     end
   end
 end
