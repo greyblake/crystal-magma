@@ -4,3 +4,6 @@
 /.shards/
 
 /bin/magma
+
+# This file is often used to run test examples
+/test.cr

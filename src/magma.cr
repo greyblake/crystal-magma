@@ -1,8 +1,13 @@
-require "compiler/crystal/**"
+#require "compiler/crystal/**"
+
+# Require minimal to use Parser
+require "compiler/crystal/program"
+require "compiler/crystal/compiler"
+require "compiler/crystal/syntax/**"
+require "compiler/crystal/semantic/**"
+
 
 alias Any = Int32 | Int64 | UInt64 | Float64 | Nil | Bool | String | Char
-alias AnyArray = Array(Any)
-alias AnyHash = Hash(Any|AnyArray, Any|AnyArray)
 
 require "./magma/mtype_wrapper"
 require "./magma/processor"
