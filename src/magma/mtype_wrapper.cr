@@ -8,6 +8,8 @@ module Magma
         MBool.new(arg)
       when Number
         MNumber.new(arg)
+      when String
+        MString.new(arg)
       else
         raise "#mtype_wrap: unknown type: #{arg.class}"
       end

@@ -45,7 +45,10 @@ module Magma
     include MTypeWrapper
     getter :context
 
-    define_gprocess [Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And, NilLiteral, CharLiteral]
+    define_gprocess [
+      Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And, NilLiteral, CharLiteral,
+      StringInterpolation
+    ]
 
     def initialize
       @context = Hash(String, MObject).new
