@@ -48,6 +48,7 @@ module Magma
       Assign, StringLiteral, NumberLiteral, Call, Expressions, BoolLiteral, Var, Or, And, NilLiteral, CharLiteral,
       StringInterpolation, SymbolLiteral, ArrayLiteral, RangeLiteral, RegexLiteral, TupleLiteral,
       FunLiteral, Def,
+      Nop,
       If
     ]
 

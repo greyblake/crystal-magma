@@ -15,6 +15,9 @@ module Magma
       when "+"
         result = (@value as Number) + (args.first.value as Number)
         mtype_wrap(result)
+      when "%"
+        result = (@value as Number) % (args.first.value as Int)
+        mtype_wrap(result)
 
       # TODO: refactor, clean up with macro
       when "=="
