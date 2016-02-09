@@ -23,7 +23,7 @@ make
 Now you can try to run some samples, e.g:
 ```sh
 # aka Hello World
-./bin/magma ./bin/magma ./samples/saluton_mondo.cr
+./bin/magma ./samples/saluton_mondo.cr
 Saluton Mondo!
 
 # Recursive fibonacci
